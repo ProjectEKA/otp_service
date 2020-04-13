@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="be10a14a-4688-4980-920a-23ebd0e45b6c" name="Default Changelist" comment="" />
+    <list default="true" id="be10a14a-4688-4980-920a-23ebd0e45b6c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.otp_service/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.otp_service/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/In.ProjectEKA.OtpService/Notification/INotificationService.cs" root0="FORCE_HIGHLIGHTING" />
@@ -17,15 +22,18 @@
     <setting file="file://$PROJECT_DIR$/src/In.ProjectEKA.OtpService/Clients/ISmsClient.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/In.ProjectEKA.OtpService/appsettings.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/In.ProjectEKA.OtpService/Notification/Action.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/In.ProjectEKA.OtpService/Properties/launchSettings.json" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.gitignore" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1aTUfHkUvkqAEykKGHtQRdZJ2aj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -33,7 +41,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TWShift.4" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="GitIgnore" />
   </component>
   <component name="RunManager" selected=".NET Launch Settings Profile.In.ProjectEKA.OtpService: IIS Express (1)">
     <configuration name="In.ProjectEKA.OtpService: IIS Express (1)" type="LaunchSettings" factoryName=".NET Launch Settings Profile" temporary="true">
@@ -109,7 +119,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586759178832</updated>
-      <workItem from="1586759180364" duration="3817000" />
+      <workItem from="1586759180364" duration="4429000" />
     </task>
     <servers />
   </component>
