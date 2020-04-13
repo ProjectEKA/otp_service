@@ -8136,11 +8136,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/neeraj.mishra/Desktop/otp_service/test/In.ProjectEKA.OtpServiceTest/In.ProjectEKA.OtpServiceTest.csproj",
+      "projectUniqueName": "/Users/neeraj.mishra/Documents/NCG/ProjectEka/otp_service/test/In.ProjectEKA.OtpServiceTest/In.ProjectEKA.OtpServiceTest.csproj",
       "projectName": "In.ProjectEKA.OtpServiceTest",
-      "projectPath": "/Users/neeraj.mishra/Desktop/otp_service/test/In.ProjectEKA.OtpServiceTest/In.ProjectEKA.OtpServiceTest.csproj",
+      "projectPath": "/Users/neeraj.mishra/Documents/NCG/ProjectEka/otp_service/test/In.ProjectEKA.OtpServiceTest/In.ProjectEKA.OtpServiceTest.csproj",
       "packagesPath": "/Users/neeraj.mishra/.nuget/packages/",
-      "outputPath": "/Users/neeraj.mishra/Desktop/otp_service/test/In.ProjectEKA.OtpServiceTest/obj/",
+      "outputPath": "/Users/neeraj.mishra/Documents/NCG/ProjectEka/otp_service/test/In.ProjectEKA.OtpServiceTest/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -8157,8 +8157,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "/Users/neeraj.mishra/Desktop/otp_service/src/In.ProjectEKA.OtpService/In.ProjectEKA.OtpService.csproj": {
-              "projectPath": "/Users/neeraj.mishra/Desktop/otp_service/src/In.ProjectEKA.OtpService/In.ProjectEKA.OtpService.csproj"
+            "/Users/neeraj.mishra/Documents/NCG/ProjectEka/otp_service/src/In.ProjectEKA.OtpService/In.ProjectEKA.OtpService.csproj": {
+              "projectPath": "/Users/neeraj.mishra/Documents/NCG/ProjectEka/otp_service/src/In.ProjectEKA.OtpService/In.ProjectEKA.OtpService.csproj"
             }
           }
         }

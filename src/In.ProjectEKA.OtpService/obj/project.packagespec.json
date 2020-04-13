@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "/Users/neeraj.mishra/Desktop/otp_service/src/In.ProjectEKA.OtpService/In.ProjectEKA.OtpService.csproj",
+    "projectUniqueName": "/Users/neeraj.mishra/Documents/NCG/ProjectEka/otp_service/src/In.ProjectEKA.OtpService/In.ProjectEKA.OtpService.csproj",
     "projectName": "In.ProjectEKA.OtpService",
-    "projectPath": "/Users/neeraj.mishra/Desktop/otp_service/src/In.ProjectEKA.OtpService/In.ProjectEKA.OtpService.csproj",
-    "outputPath": "/Users/neeraj.mishra/Desktop/otp_service/src/In.ProjectEKA.OtpService/obj/",
+    "projectPath": "/Users/neeraj.mishra/Documents/NCG/ProjectEka/otp_service/src/In.ProjectEKA.OtpService/In.ProjectEKA.OtpService.csproj",
+    "outputPath": "/Users/neeraj.mishra/Documents/NCG/ProjectEka/otp_service/src/In.ProjectEKA.OtpService/obj/",
     "projectStyle": "PackageReference",
     "fallbackFolders": [
       "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
