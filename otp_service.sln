@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# 
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{85D92058-A60A-49E3-9F35-D524A6A3210D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "In.ProjectEKA.OtpService", "src\In.ProjectEKA.OtpService\In.ProjectEKA.OtpService.csproj", "{6DCA4751-41C2-4594-ADC5-728F8672D973}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8BD81218-FD1C-4B45-B69B-A29130383B83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "In.ProjectEKA.OtpServiceTest", "test\In.ProjectEKA.OtpServiceTest\In.ProjectEKA.OtpServiceTest.csproj", "{831576BA-0DED-4CCA-8956-919325068685}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DCA4751-41C2-4594-ADC5-728F8672D973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DCA4751-41C2-4594-ADC5-728F8672D973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DCA4751-41C2-4594-ADC5-728F8672D973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DCA4751-41C2-4594-ADC5-728F8672D973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{831576BA-0DED-4CCA-8956-919325068685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831576BA-0DED-4CCA-8956-919325068685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831576BA-0DED-4CCA-8956-919325068685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831576BA-0DED-4CCA-8956-919325068685}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6DCA4751-41C2-4594-ADC5-728F8672D973} = {85D92058-A60A-49E3-9F35-D524A6A3210D}
+		{831576BA-0DED-4CCA-8956-919325068685} = {8BD81218-FD1C-4B45-B69B-A29130383B83}
+	EndGlobalSection
+EndGlobal
