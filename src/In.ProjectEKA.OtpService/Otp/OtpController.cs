@@ -2,9 +2,11 @@ namespace In.ProjectEKA.OtpService.Otp
 {
     using System.Threading.Tasks;
     using Common;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     [Route("otp")]
     [ApiController]
     public class OtpController : Controller

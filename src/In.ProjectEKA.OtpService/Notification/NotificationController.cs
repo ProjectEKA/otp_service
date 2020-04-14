@@ -2,9 +2,11 @@ namespace In.ProjectEKA.OtpService.Notification
 {
     using System.Threading.Tasks;
     using Common;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     [Route("/notification")]
     [ApiController]
     public class NotificationController : Controller
