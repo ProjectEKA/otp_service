@@ -22,7 +22,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1.100 AS build-env
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY src/In.ProjectEKA.OtpService/In.ProjectEKA.OtpService.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
