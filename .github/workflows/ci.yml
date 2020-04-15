@@ -22,6 +22,23 @@ jobs:
         run: echo ::set-env name=RELEASE_VERSION::$(echo $GITHUB_SHA | head -c7)
       - name: Test coverage
         run: dotnet test test/In.ProjectEKA.OtpServiceTest/In.ProjectEKA.OtpServiceTest.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      - name: Docker Registry
+        env:
+          DOCKER_REGISTRY_URL: docker.io
+          DOCKER_PASSWORD: ${{ secrets.SE_DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.SE_DOCKER_USERNAME }}
+        run: |
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY_URL
+      - name: Build docker image
+        env:
+          CONTAINER_REPO_NAME: otp_service
+          DOCKER_USERNAME: ${{ secrets.SE_DOCKER_USERNAME }}
+        run: docker build -t $DOCKER_USERNAME/$CONTAINER_REPO_NAME:$RELEASE_VERSION .
+      - name: Push Docker Container to Registry
+        env:
+          CONTAINER_REPO_NAME: otp_service
+          DOCKER_USERNAME: ${{ secrets.SE_DOCKER_USERNAME }}
+        run: docker push $DOCKER_USERNAME/$CONTAINER_REPO_NAME:$RELEASE_VERSION
   sonarCodeAnalysis:
     name: Code Analysis
     runs-on: ubuntu-latest
