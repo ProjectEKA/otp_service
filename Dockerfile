@@ -26,7 +26,7 @@ COPY src/In.ProjectEKA.OtpService/In.ProjectEKA.OtpService.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
-COPY . ./
+COPY src/In.ProjectEKA.OtpService ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
