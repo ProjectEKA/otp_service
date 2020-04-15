@@ -33,12 +33,12 @@ jobs:
         env:
           CONTAINER_REPO_NAME: otp_service
           DOCKER_USERNAME: ${{ secrets.SE_DOCKER_USERNAME }}
-        run: docker build -t $DOCKER_USERNAME/$CONTAINER_REPO_NAME:$RELEASE_VERSION .
+        run: docker build -t $DOCKER_USERNAME/$CONTAINER_REPO_NAME/:$RELEASE_VERSION .
       - name: Push Docker Container to Registry
         env:
           CONTAINER_REPO_NAME: otp_service
           DOCKER_USERNAME: ${{ secrets.SE_DOCKER_USERNAME }}
-        run: docker push $DOCKER_USERNAME/$CONTAINER_REPO_NAME:$RELEASE_VERSION
+        run: docker push $DOCKER_USERNAME/$CONTAINER_REPO_NAME/:$RELEASE_VERSION
   sonarCodeAnalysis:
     name: Code Analysis
     runs-on: ubuntu-latest
