@@ -7,8 +7,8 @@ COPY src/In.ProjectEKA.OtpService/*.csproj ./src/In.ProjectEKA.OtpService/
 RUN dotnet restore
 
 # Copy everything else and build
-COPY . .
-WORKDIR /app/src/In.ProjectEKA.OtpService
+COPY otp_service.sln ./
+WORKDIR src/In.ProjectEKA.OtpService/*.csproj
 RUN dotnet build -c Release -o /app
 
 # Build runtime image
