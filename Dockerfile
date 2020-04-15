@@ -4,6 +4,7 @@ WORKDIR /app
 # Copy csproj and restore as distinct layers
 COPY otp_service.sln ./
 COPY src/In.ProjectEKA.OtpService/*.csproj ./src/In.ProjectEKA.OtpService/
+COPY test/In.ProjectEKA.OtpServiceTest/*.csproj ./src/In.ProjectEKA.OtpServiceTest/
 RUN dotnet restore
 
 # Copy everything else and build
