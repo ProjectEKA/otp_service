@@ -5,10 +5,9 @@ namespace In.ProjectEKA.OtpService.Clients
     using System.Threading.Tasks;
     using System.Web;
     using Common;
+    using Common.Logger;
     using Microsoft.Extensions.Configuration;
     using Newtonsoft.Json.Linq;
-    using Notification.Logger;
-
     public class SmsClient : ISmsClient
     {
         private readonly IConfiguration configuration;
