@@ -3,10 +3,10 @@ namespace In.ProjectEKA.OtpService.Otp
     using System;
     using System.Threading.Tasks;
     using Common;
+    using Common.Logger;
     using Model;
     using Microsoft.EntityFrameworkCore;
     using Optional;
-    using Logger;
 
     public class OtpRepository : IOtpRepository
     {

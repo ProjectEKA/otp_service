@@ -1,8 +1,8 @@
-namespace In.ProjectEKA.OtpService.Notification.Logger
+namespace In.ProjectEKA.OtpService.Common.Logger
 {
     using System;
 
-    public static class Log
+    public class Log
     {
         public static void Information(string format, params object[] arg)
         {

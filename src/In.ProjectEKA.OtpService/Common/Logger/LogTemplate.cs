@@ -1,6 +1,6 @@
-namespace In.ProjectEKA.OtpService.Notification.Logger
+namespace In.ProjectEKA.OtpService.Common.Logger
 {
-    public static class LogTemplate
+    public class LogTemplate
     {
         public static readonly string ExceptionTemplate = "Exception Occured {Exception}";
         public static readonly string InformationTemplate = "Success {message}";
