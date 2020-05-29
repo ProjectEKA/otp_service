@@ -16,22 +16,16 @@ namespace In.ProjectEKA.OtpService.Notification
 
         public async Task<Response> SendNotification(Notification notification)
         { 
-            switch(notification.Action)
+            return notification.Action switch
             {
-                case Action.ConsentRequestCreated:
-                    await smsClient.Send(
-                        notification.Communication.Value,
-                        GenerateConsentRequestMessage(notification.Content));
-                    return new Response(ResponseType.InternalServerError, "");
-
-                case Action.CmidRecovered:
-                    await smsClient.Send(
-                        notification.Communication.Value,
-                        GenerateConsentRequestMessage(notification.Content));
-                    return new Response(ResponseType.InternalServerError, "");
-                
-                default: return null;
-            }
+                Action.ConsentRequestCreated => await smsClient.Send(
+                    notification.Communication.Value,
+                    GenerateConsentRequestMessage(notification.Content)),
+                Action.ConsentManagerIdRecovered => await smsClient.Send(
+                    notification.Communication.Value,
+                    GenerateConsentManagerIdRecoveredMessage(notification.Content)),
+                _ => new Response(ResponseType.InternalServerError, "")
+            };
         }
 
         private static string GenerateConsentRequestMessage(JObject notificationContent)
@@ -44,11 +38,11 @@ namespace In.ProjectEKA.OtpService.Notification
             return message;
         }
 
-        private static string GenerateCmidRecoveryMessage(JObject notificationContent)
+        private static string GenerateConsentManagerIdRecoveredMessage(JObject notificationContent)
         {
-            var cMidContent = notificationContent.ToObject<CMidContent>();
+            var consentManagerIdContent = notificationContent.ToObject<ConsentManagerIdContent>();
             var message =
-                $"The consent manager ID associated with you details is {cMidContent.CMid}@ncg." +
+                $"The consent manager ID associated with you details is {consentManagerIdContent.ConsentManagerId}@ncg." +
                 $" To make sure that your account is secure, we request you to reset the password";
             return message;
         }
