@@ -29,6 +29,18 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
 
             response.Should().Be(expectedResponse);
         }
+        
+        [Fact]
+        private async void ReturnSuccessResponseForConsentManagerIdRecovered()
+        {
+            var expectedResponse = new Response(ResponseType.Success, "Notification sent");
+            notificationWebHandler.Setup(e => e.Send(It.IsAny<string>(),
+                It.IsAny<string>())).ReturnsAsync(expectedResponse);
+
+            var response = await notificationService.SendNotification(TestBuilder.GenerateNotificationMessageForConsentManagerIdRecovered());
+
+            response.Should().Be(expectedResponse);
+        }
 
         [Fact]
         private async void ReturnInternalServerError()
@@ -38,6 +50,18 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
                 It.IsAny<string>())).ReturnsAsync(expectedResponse);
 
             var response = await notificationService.SendNotification(TestBuilder.GenerateNotificationMessage());
+
+            response.ResponseType.Should().Be(expectedResponse.ResponseType);
+        }
+        
+        [Fact]
+        private async void ReturnInternalServerErrorForConsentManagerIdRecovered()
+        {
+            var expectedResponse = new Response(ResponseType.InternalServerError, "Internal server error");
+            notificationWebHandler.Setup(e => e.Send(It.IsAny<string>(),
+                It.IsAny<string>())).ReturnsAsync(expectedResponse);
+
+            var response = await notificationService.SendNotification(TestBuilder.GenerateNotificationMessageForConsentManagerIdRecovered());
 
             response.ResponseType.Should().Be(expectedResponse.ResponseType);
         }

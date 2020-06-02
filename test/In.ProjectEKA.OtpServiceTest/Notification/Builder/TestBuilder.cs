@@ -17,5 +17,14 @@ namespace In.ProjectEKA.OtpServiceTest.Notification.Builder
                                             new JObject(), 
                                             Action.ConsentRequestCreated);
         }
+        
+        public static Notification GenerateNotificationMessageForConsentManagerIdRecovered()
+        {
+            var fakerNotification = Faker();
+            return new Notification(fakerNotification.Random.Hash(),
+                new Communication(CommunicationType.Mobile, fakerNotification.Random.Words(10)), 
+                new JObject(), 
+                Action.ConsentManagerIdRecovered);
+        }
     }
 }
