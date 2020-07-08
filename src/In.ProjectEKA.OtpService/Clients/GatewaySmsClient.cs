@@ -112,9 +112,6 @@ namespace In.ProjectEKA.OtpService.Clients
                     .ConfigureAwait(false);
                 var response = await responseMessage.Content.ReadAsStringAsync();
 
-                Console.WriteLine("Response: {0}", response);
-
-
                 var definition = new {access_token = "", token_type = ""};
                 var result = JsonConvert
                     .DeserializeAnonymousType(response, definition);
