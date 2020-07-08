@@ -89,14 +89,14 @@ namespace In.ProjectEKA.OtpService.Clients
             {
                 var auth = smsServiceProperties.ClientId + ":" + smsServiceProperties.ClientSecret;
 
-                var nvc = new List<KeyValuePair<string, string>>
+                var requestContent = new List<KeyValuePair<string, string>>
                 {
                     new KeyValuePair<string, string>("grant_type", "client_credentials")
                 };
 
                 client.DefaultRequestHeaders
                     .Accept
-                    .Add(new MediaTypeWithQualityHeaderValue("application/json")); //ACCEPT header
+                    .Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 client.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue(
@@ -106,7 +106,7 @@ namespace In.ProjectEKA.OtpService.Clients
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post,
                     smsServiceProperties.TokenApi);
-                request.Content = new FormUrlEncodedContent(nvc);
+                request.Content = new FormUrlEncodedContent(requestContent);
 
                 var responseMessage = await client.SendAsync(request)
                     .ConfigureAwait(false);
