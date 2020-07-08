@@ -29,12 +29,6 @@ namespace In.ProjectEKA.OtpService
                 .AddDbContext<OtpContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")))
                 .AddSingleton(new OtpProperties(Configuration.GetValue<int>("expiryInMinutes")))
-                .AddSingleton(new SmsServiceProperties(
-                    Configuration.GetValue<string>("SmsService:ClientId"),
-                    Configuration.GetValue<string>("SmsService:ClientSecret"),
-                    Configuration.GetValue<string>("SmsService:tokenApi"),
-                    Configuration.GetValue<string>("SmsService:SmsApi")
-                ))
                 .AddScoped<IOtpRepository, OtpRepository>()
                 .AddScoped<IOtpGenerator, OtpGenerator>()
                 .AddScoped<INotificationService, NotificationService>()
@@ -52,7 +46,14 @@ namespace In.ProjectEKA.OtpService
 
             if (Configuration.GetValue<bool>("UseGatewaySmsClient"))
             {
-                services.AddSingleton<ISmsClient, GatewaySmsClient>();
+                services
+                    .AddSingleton<ISmsClient, GatewaySmsClient>()
+                    .AddSingleton(new SmsServiceProperties(
+                        Configuration.GetValue<string>("SmsService:ClientId"),
+                        Configuration.GetValue<string>("SmsService:ClientSecret"),
+                        Configuration.GetValue<string>("SmsService:tokenApi"),
+                        Configuration.GetValue<string>("SmsService:SmsApi")
+                    ));
             }
             else
             {
