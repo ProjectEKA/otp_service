@@ -1,6 +1,5 @@
 namespace In.ProjectEKA.OtpService
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Text.Json;
     using Clients;
@@ -24,12 +23,18 @@ namespace In.ProjectEKA.OtpService
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services) =>
+        public void ConfigureServices(IServiceCollection services)
+        {
             services
                 .AddDbContext<OtpContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")))
-                .AddSingleton<ISmsClient, SmsClient>()
                 .AddSingleton(new OtpProperties(Configuration.GetValue<int>("expiryInMinutes")))
+                .AddSingleton(new SmsServiceProperties(
+                    Configuration.GetValue<string>("SmsService:ClientId"),
+                    Configuration.GetValue<string>("SmsService:ClientSecret"),
+                    Configuration.GetValue<string>("SmsService:tokenApi"),
+                    Configuration.GetValue<string>("SmsService:SmsApi")
+                ))
                 .AddScoped<IOtpRepository, OtpRepository>()
                 .AddScoped<IOtpGenerator, OtpGenerator>()
                 .AddScoped<INotificationService, NotificationService>()
@@ -44,6 +49,16 @@ namespace In.ProjectEKA.OtpService
                 .AddNewtonsoftJson(options => { })
                 .AddJsonOptions(options =>
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+
+            if (Configuration.GetValue<bool>("UseGatewaySmsClient"))
+            {
+                services.AddSingleton<ISmsClient, GatewaySmsClient>();
+            }
+            else
+            {
+                services.AddSingleton<ISmsClient, SmsClient>();
+            }
+        }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
