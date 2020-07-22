@@ -4,6 +4,7 @@ namespace In.ProjectEKA.OtpService.Otp
     {
         REGISTRATION, 
         FORGOT_CM_ID,
-        LOGIN
+        LOGIN,
+        LINK_PATIENT_CARECONTEXT
     }
 }

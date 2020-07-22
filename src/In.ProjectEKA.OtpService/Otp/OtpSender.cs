@@ -45,6 +45,8 @@ namespace In.ProjectEKA.OtpService.Otp
                                        $" for {otpProperties.ExpiryInMinutes} minutes. Message sent by {creationDetail.SystemName}",
                 Action.REGISTRATION => $"The OTP is {value} to verify the mobile number, This one time password is valid " +
                                        $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {creationDetail.SystemName}",
+                Action.LINK_PATIENT_CARECONTEXT => $"The OTP is {value} to link your care context, This one time password is valid " +
+                                                   $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {creationDetail.SystemName}",
                 _ => throw new Exception("Unknown action")
             };
         }

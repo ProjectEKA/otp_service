@@ -42,7 +42,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
             var otp = TestBuilder.Faker().Random.String();
             var phoneNumber = TestBuilder.Faker().Random.String();
             var otpRequest = new OtpGenerationRequest(sessionId, new Communication("MOBILE"
-                , phoneNumber), new OtpCreationDetail(systemName, Action.REGISTRATION));
+                , phoneNumber), new OtpCreationDetail(systemName, Action.REGISTRATION.ToString()));
             var expectedResult = new Response(ResponseType.Success, "Otp Created");
             var generateMessage = new OtpSender(otpRepository.Object,
                                                       otpGenerator.Object,
@@ -74,7 +74,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
             var phoneNumber = TestBuilder.Faker().Random.String();
             var systemName = TestBuilder.Faker().Random.Word();
             var otpRequest = new OtpGenerationRequest(sessionId, new Communication("MOBILE"
-                , phoneNumber), new OtpCreationDetail(systemName, Action.REGISTRATION));
+                , phoneNumber), new OtpCreationDetail(systemName, Action.REGISTRATION.ToString()));
             var generateMessage = new OtpSender(otpRepository.Object,
                     otpGenerator.Object,
                     smsClient.Object,
