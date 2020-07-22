@@ -51,7 +51,7 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Response'
-                
+
   /otp/{sessionId}/verify:
     post:
       tags:
@@ -69,7 +69,7 @@ paths:
               $ref: '#/components/schemas/OtpVerificationRequest'
           application/xml:
             schema:
-              $ref: '#/components/schemas/OtpVerificationRequest'     
+              $ref: '#/components/schemas/OtpVerificationRequest'
       responses:
         '200':
           description: Otp is valid
@@ -171,9 +171,19 @@ components:
             value:
               type: string
               example: "+91XXXXXXXXXX"
+        creationDetail:
+          type: object
+          properties:
+            systemName:
+              type: string
+              enum: [NCG, PHR, NHS, HIU]
+              description: Name of the system which is calling this api.
+            action:
+              type: string
+              enum: [REGISTRATION, FORGOT_CM_ID, LOGIN]
+              description: Action it is going to perform.
       xml:
         name: OtpGenerationRequest
-        
     OtpVerificationRequest:
       type: object
       properties:

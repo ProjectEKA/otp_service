@@ -13,6 +13,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
     using OtpService.Clients;
     using OtpService.Common;
     using OtpService.Otp.Model;
+    using Action = OtpService.Otp.Action;
 
     [Collection("Otp Controller Tests")]
     public class OtpControllerTest
@@ -21,13 +22,13 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
         private readonly Mock<IOtpRepository> otpRepository;
         private readonly Mock<IOtpGenerator> otpGenerator;
         private readonly Mock<ISmsClient> smsClient;
-
+        private readonly OtpProperties otpProperties = new OtpProperties(5);
         public OtpControllerTest()
         {
             otpRepository = new Mock<IOtpRepository>();
             otpGenerator = new Mock<IOtpGenerator>();
             smsClient = new Mock<ISmsClient>();
-            var otpService = new OtpSender(otpRepository.Object, otpGenerator.Object, smsClient.Object);
+            var otpService = new OtpSender(otpRepository.Object, otpGenerator.Object, smsClient.Object, otpProperties);
             var otpServiceFactory = new OtpSenderFactory(otpService, new FakeOtpSender(otpRepository.Object), null);
             otpController = new OtpController(otpServiceFactory,
                 new OtpVerifier(otpRepository.Object, new OtpProperties(1)));
@@ -37,12 +38,19 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
         public async Task ShouldSuccessInOtpGeneration()
         {
             var sessionId = TestBuilder.Faker().Random.Hash();
+            var systemName = TestBuilder.Faker().Random.Word();
             var otp = TestBuilder.Faker().Random.String();
             var phoneNumber = TestBuilder.Faker().Random.String();
-            var otpRequest = new OtpGenerationRequest(sessionId, new Communication("MOBILE", phoneNumber));
+            var otpRequest = new OtpGenerationRequest(sessionId, new Communication("MOBILE"
+                , phoneNumber), new OtpCreationDetail(systemName, Action.REGISTRATION));
             var expectedResult = new Response(ResponseType.Success, "Otp Created");
+            var generateMessage = new OtpSender(otpRepository.Object,
+                                                      otpGenerator.Object,
+                                                      smsClient.Object,
+                                                      new OtpProperties(5))
+                .GenerateMessage(otpRequest.CreationDetail, otp);
             otpGenerator.Setup(e => e.GenerateOtp()).Returns(otp);
-            smsClient.Setup(e => e.Send(phoneNumber, otp)).ReturnsAsync(expectedResult);
+            smsClient.Setup(e => e.Send(phoneNumber, generateMessage)).ReturnsAsync(expectedResult);
             otpRepository.Setup(e => e.Save(otp, sessionId)).ReturnsAsync(expectedResult);
 
             var response = await otpController.GenerateOtp(otpRequest);
@@ -61,13 +69,20 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
         [Fact]
         public async Task ReturnOtpGenerationBadRequest()
         {
+            var sessionId = TestBuilder.Faker().Random.Hash();
             var otp = TestBuilder.Faker().Random.String();
             var phoneNumber = TestBuilder.Faker().Random.String();
-            var otpRequest = new OtpGenerationRequest(TestBuilder.Faker().Random.Hash()
-                , new Communication("MOBILE", phoneNumber));
+            var systemName = TestBuilder.Faker().Random.Word();
+            var otpRequest = new OtpGenerationRequest(sessionId, new Communication("MOBILE"
+                , phoneNumber), new OtpCreationDetail(systemName, Action.REGISTRATION));
+            var generateMessage = new OtpSender(otpRepository.Object,
+                    otpGenerator.Object,
+                    smsClient.Object,
+                    new OtpProperties(5))
+                .GenerateMessage(otpRequest.CreationDetail, otp);
             var expectedResult = new Response(ResponseType.InternalServerError, "OtpGeneration Saving failed");
             otpGenerator.Setup(e => e.GenerateOtp()).Returns(otp);
-            smsClient.Setup(e => e.Send(phoneNumber, otp)).ReturnsAsync(expectedResult);
+            smsClient.Setup(e => e.Send(phoneNumber, generateMessage)).ReturnsAsync(expectedResult);
 
             var response = await otpController.GenerateOtp(otpRequest) as ObjectResult;
 
