@@ -32,7 +32,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
             var systemName = TestBuilder.Faker().Random.Word();
             var phoneNumber = TestBuilder.Faker().Phone.PhoneNumber();
             var testOtpResponse = new Response(ResponseType.Success, "Otp Created");
-            var otpCreationDetail = new OtpCreationDetail(systemName, Action.REGISTRATION.ToString());
+            var otpCreationDetail = new OtpGenerationDetail(systemName, Action.REGISTRATION.ToString());
             var otpRequest = new OtpGenerationRequest(sessionId, new Communication("MOBILE"
                 , phoneNumber), otpCreationDetail);
             var generatedMessage = otpSender.GenerateMessage(otpCreationDetail, otpToken);
