@@ -1,3 +1,5 @@
+using In.ProjectEKA.OtpService.Clients;
+
 namespace In.ProjectEKA.OtpService.Otp
 {
     using System.Threading.Tasks;
