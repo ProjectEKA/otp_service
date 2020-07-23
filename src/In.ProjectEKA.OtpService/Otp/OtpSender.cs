@@ -48,7 +48,7 @@ namespace In.ProjectEKA.OtpService.Otp
                 Action.LINK_PATIENT_CARECONTEXT => $"The OTP is {value} to link your care context, This one time password is valid " +
                                                    $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {creationDetail.SystemName}",
                 Action.RECOVER_PASSWORD => $"The OTP is {value} to link your care context, This one time password is valid " +
-                                                   $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {creationDetail.SystemName}",
+                                                   $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {creationDetail.SystemName}", 
                 _ => throw new Exception("Unknown action")
             };
         }
