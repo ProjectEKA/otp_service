@@ -22,7 +22,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
             var result = await fakeOtpSender.GenerateOtp(new OtpGenerationRequest(
                 sessionId,
                 new Communication(TestBuilder.Faker().Random.String(), TestBuilder.Faker().Random.String()),
-                new OtpCreationDetail(TestBuilder.Faker().Random.Word(), Action.REGISTRATION.ToString())));
+                new OtpGenerationDetail(TestBuilder.Faker().Random.Word(), Action.REGISTRATION.ToString())));
 
             result.Should().BeEquivalentTo(expectation);
         }
