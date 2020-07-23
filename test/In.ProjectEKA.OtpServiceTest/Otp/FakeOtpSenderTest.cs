@@ -21,7 +21,8 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
 
             var result = await fakeOtpSender.GenerateOtp(new OtpGenerationRequest(
                 sessionId,
-                new Communication(TestBuilder.Faker().Random.String(), TestBuilder.Faker().Random.String())));
+                new Communication(TestBuilder.Faker().Random.String(), TestBuilder.Faker().Random.String()),
+                new OtpGenerationDetail(TestBuilder.Faker().Random.Word(), Action.REGISTRATION.ToString())));
 
             result.Should().BeEquivalentTo(expectation);
         }

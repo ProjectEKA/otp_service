@@ -18,10 +18,10 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
         private readonly Mock<IOtpRepository> otpRepository = new Mock<IOtpRepository>();
         private readonly Mock<IOtpGenerator> otpGenerator = new Mock<IOtpGenerator>();
         private readonly Mock<ISmsClient> otpWebHandler = new Mock<ISmsClient>();
-
+        private readonly OtpProperties otpProperties = new OtpProperties(5);
         public OtpSenderTest()
         {
-            otpSender = new OtpSender(otpRepository.Object, otpGenerator.Object, otpWebHandler.Object);
+            otpSender = new OtpSender(otpRepository.Object, otpGenerator.Object, otpWebHandler.Object, otpProperties);
         }
 
         [Fact]
@@ -29,12 +29,15 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
         {
             var sessionId = TestBuilder.Faker().Random.Hash();
             const string otpToken = "123456";
+            var systemName = TestBuilder.Faker().Random.Word();
             var phoneNumber = TestBuilder.Faker().Phone.PhoneNumber();
             var testOtpResponse = new Response(ResponseType.Success, "Otp Created");
+            var otpCreationDetail = new OtpGenerationDetail(systemName, Action.REGISTRATION.ToString());
             var otpRequest = new OtpGenerationRequest(sessionId, new Communication("MOBILE"
-                , phoneNumber));
+                , phoneNumber), otpCreationDetail);
+            var generatedMessage = otpSender.GenerateMessage(otpCreationDetail, otpToken);
             otpGenerator.Setup(e => e.GenerateOtp()).Returns(otpToken);
-            otpWebHandler.Setup(e => e.Send(otpRequest.Communication.Value, otpToken))
+            otpWebHandler.Setup(e => e.Send(otpRequest.Communication.Value, generatedMessage))
                 .ReturnsAsync(testOtpResponse);
             otpRepository.Setup(e => e.Save(otpToken, sessionId))
                 .ReturnsAsync(testOtpResponse);

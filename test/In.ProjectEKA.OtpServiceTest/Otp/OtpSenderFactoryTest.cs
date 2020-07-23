@@ -14,7 +14,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
         {
             var fakeOtpSender = new FakeOtpSender(null);
             var otpSenderFactory = new OtpSenderFactory(
-                new OtpSender(null, null, null),
+                new OtpSender(null, null, null, null),
                 fakeOtpSender,
                 new List<string>
                 {
@@ -32,7 +32,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
         [InlineData("+91-2222222222")]
         public void ShouldReturnDefaultOtpSender(string mobileNumber)
         {
-            var otpSender = new OtpSender(null, null, null);
+            var otpSender = new OtpSender(null, null, null,  null);
             var otpSenderFactory = new OtpSenderFactory(
                 otpSender,
                 new FakeOtpSender(null),
