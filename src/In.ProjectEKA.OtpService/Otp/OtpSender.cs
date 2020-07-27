@@ -48,6 +48,8 @@ namespace In.ProjectEKA.OtpService.Otp
                               $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
                 Action.RECOVER_PASSWORD => $"The OTP is {value} to recover password, This one time password is valid " +
                                                    $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
+                Action.FORGOT_PIN => $"The OTP is {value} to set a new consent pin, this one time password is valid " +
+                                                   $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
                 _ => throw new Exception("Unknown action")
             };
         }

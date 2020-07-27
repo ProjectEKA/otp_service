@@ -6,6 +6,7 @@ namespace In.ProjectEKA.OtpService.Otp
         FORGOT_CM_ID,
         LOGIN,
         LINK_PATIENT_CARECONTEXT,
-        RECOVER_PASSWORD
+        RECOVER_PASSWORD,
+        FORGOT_PIN
     }
 }
