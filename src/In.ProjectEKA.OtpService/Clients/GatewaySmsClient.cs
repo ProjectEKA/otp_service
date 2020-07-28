@@ -1,23 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Mime;
-using System.Text;
-using In.ProjectEKA.OtpService.Otp;
-using Microsoft.Net.Http.Headers;
-using Newtonsoft.Json;
-using Optional;
-
 namespace In.ProjectEKA.OtpService.Clients
 {
     using System.Threading.Tasks;
     using Common;
     using Common.Logger;
     using Newtonsoft.Json.Linq;
-
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Net.Mime;
+    using System.Text;
+    using Otp;
+    using Microsoft.Net.Http.Headers;
+    using Newtonsoft.Json;
+    using Optional;
     public class GatewaySmsClient : ISmsClient
     {
         private readonly SmsServiceProperties smsServiceProperties;
@@ -41,43 +39,37 @@ namespace In.ProjectEKA.OtpService.Clients
 
             if (tokenValue == "")
             {
-                return new Response(ResponseType.Success, "Unable to get token");
+                return new Response(ResponseType.InternalServerError, "Unable to get token");
             }
 
             try
             {
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post,
+                var request = new HttpRequestMessage(HttpMethod.Post,
                     smsServiceProperties.SmsApi);
-                if (token != null)
-                {
-                    request.Headers.Add(HeaderNames.Authorization, tokenValue);
-                }
-
+                request.Headers.Add(HeaderNames.Authorization, tokenValue);
                 var requestBody = new
                 {
                     msisdn = phoneNumber, message
                 };
 
-                string json_data = JsonConvert.SerializeObject(requestBody);
+                var jsonData = JsonConvert.SerializeObject(requestBody);
 
                 //Parse the json object
-                JObject json_object = JObject.Parse(json_data);
+                var jsonObject = JObject.Parse(jsonData);
 
-                request.Content = new StringContent(json_object.ToString(), Encoding.UTF8,
+                request.Content = new StringContent(jsonObject.ToString(), Encoding.UTF8,
                     MediaTypeNames.Application.Json);
-
                 var response = await client
                     .SendAsync(request)
                     .ConfigureAwait(false);
-
                 if (response.StatusCode == (HttpStatusCode) 200)
                     return new Response(ResponseType.Success, "Notification sent");
-                
                 Log.Error(response.StatusCode,response.Content);
             }
             catch (Exception exception)
             {
                 Log.Error(exception, exception.StackTrace);
+                return new Response(ResponseType.InternalServerError, "Unable to create otp message.");
             }
 
             return new Response(ResponseType.Success, "Error in sending notification");
