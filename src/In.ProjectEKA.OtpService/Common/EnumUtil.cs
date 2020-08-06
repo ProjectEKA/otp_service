@@ -1,8 +1,8 @@
 namespace In.ProjectEKA.OtpService.Common
 {
-    using System;
+	using System;
 
-    public class EnumUtil
+	public class EnumUtil
     {
         public static T ParseEnum<T>(string value)
         {

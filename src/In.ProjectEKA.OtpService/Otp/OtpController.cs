@@ -1,13 +1,11 @@
-using In.ProjectEKA.OtpService.Clients;
-
 namespace In.ProjectEKA.OtpService.Otp
 {
-    using System.Threading.Tasks;
-    using Common;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
+	using System.Threading.Tasks;
+	using Common;
+	using Microsoft.AspNetCore.Http;
+	using Microsoft.AspNetCore.Mvc;
 
-    [Route("otp")]
+	[Route("otp")]
     [ApiController]
     public class OtpController : Controller
     {
@@ -40,7 +38,7 @@ namespace In.ProjectEKA.OtpService.Otp
         {
             return otpResponse.ResponseType switch
             {
-                ResponseType.Success => (ActionResult) Ok(otpResponse),
+                ResponseType.Success => Ok(otpResponse),
                 ResponseType.OtpValid => Ok(otpResponse),
                 ResponseType.OtpInvalid => BadRequest(otpResponse),
                 ResponseType.OtpExpired => Unauthorized(otpResponse),

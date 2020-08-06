@@ -1,9 +1,9 @@
 namespace In.ProjectEKA.OtpService.Otp.Model
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
+	using System;
+	using System.ComponentModel.DataAnnotations;
 
-    public class OtpRequest
+	public class OtpRequest
     {
         [Key] public string SessionId { get; set; }
 

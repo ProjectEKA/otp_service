@@ -1,14 +1,14 @@
 namespace In.ProjectEKA.OtpServiceTest.Otp
 {
-    using System.Threading.Tasks;
-    using Builder;
-    using FluentAssertions;
-    using Moq;
-    using OtpService.Common;
-    using OtpService.Otp;
-    using Xunit;
+	using System.Threading.Tasks;
+	using Builder;
+	using FluentAssertions;
+	using Moq;
+	using OtpService.Common;
+	using OtpService.Otp;
+	using Xunit;
 
-    public class FakeOtpSenderTest
+	public class FakeOtpSenderTest
     {
         [Fact]
         public async Task ShouldSaveOtp()

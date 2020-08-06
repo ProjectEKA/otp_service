@@ -1,8 +1,8 @@
 namespace In.ProjectEKA.OtpService.Otp
 {
-    using System;
-    
-    public class OtpGenerator: IOtpGenerator
+	using System;
+
+	public class OtpGenerator: IOtpGenerator
     {
         public string GenerateOtp()
         {

@@ -1,14 +1,14 @@
 namespace In.ProjectEKA.OtpServiceTest.Notification
 {
-    using Builder;
-    using FluentAssertions;
-    using Moq;
-    using OtpService.Clients;
-    using OtpService.Common;
-    using OtpService.Notification;
-    using Xunit;
+	using Builder;
+	using FluentAssertions;
+	using Moq;
+	using OtpService.Clients;
+	using OtpService.Common;
+	using OtpService.Notification;
+	using Xunit;
 
-    public class NotificationServiceTest
+	public class NotificationServiceTest
     {
         private readonly Mock<ISmsClient> notificationWebHandler = new Mock<ISmsClient>();
         private readonly NotificationService notificationService;

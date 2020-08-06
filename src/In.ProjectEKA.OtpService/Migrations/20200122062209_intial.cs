@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace In.ProjectEKA.OtpService.Migrations
+﻿namespace In.ProjectEKA.OtpService.Migrations
 {
-    public partial class intial : Migration
+	using Microsoft.EntityFrameworkCore.Migrations;
+
+	public partial class intial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

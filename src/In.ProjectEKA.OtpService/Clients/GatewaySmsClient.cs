@@ -1,22 +1,23 @@
 namespace In.ProjectEKA.OtpService.Clients
 {
-    using System.Threading.Tasks;
-    using Common;
-    using Common.Logger;
-    using Newtonsoft.Json.Linq;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Net.Mime;
-    using System.Text;
-    using Otp;
-    using Microsoft.Net.Http.Headers;
-    using Newtonsoft.Json;
-    using Optional;
-    public class GatewaySmsClient : ISmsClient
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Net;
+	using System.Net.Http;
+	using System.Net.Http.Headers;
+	using System.Net.Mime;
+	using System.Text;
+	using System.Threading.Tasks;
+	using Common;
+	using Common.Logger;
+	using Microsoft.Net.Http.Headers;
+	using Newtonsoft.Json;
+	using Newtonsoft.Json.Linq;
+	using Optional;
+	using Otp;
+
+	public class GatewaySmsClient : ISmsClient
     {
         private readonly SmsServiceProperties smsServiceProperties;
         private readonly HttpClient client;

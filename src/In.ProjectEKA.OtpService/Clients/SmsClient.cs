@@ -1,14 +1,16 @@
 namespace In.ProjectEKA.OtpService.Clients
 {
-    using System.Collections.Specialized;
-    using System.Net;
-    using System.Threading.Tasks;
-    using System.Web;
-    using Common;
-    using Common.Logger;
-    using Microsoft.Extensions.Configuration;
-    using Newtonsoft.Json.Linq;
-    public class SmsClient : ISmsClient
+	using System.Collections.Specialized;
+	using System.Net;
+	using System.Text;
+	using System.Threading.Tasks;
+	using System.Web;
+	using Common;
+	using Common.Logger;
+	using Microsoft.Extensions.Configuration;
+	using Newtonsoft.Json.Linq;
+
+	public class SmsClient : ISmsClient
     {
         private readonly IConfiguration configuration;
 
@@ -29,7 +31,7 @@ namespace In.ProjectEKA.OtpService.Clients
                     {"message" , notification},
                     {"sender name" , "HCMNCG"},
                 });
-            var json = JObject.Parse(System.Text.Encoding.UTF8.GetString(response));
+            var json = JObject.Parse(Encoding.UTF8.GetString(response));
             Log.Information((string)json["status"] == "success" ? "Success in sending notification" :
                 (string)json["errors"][0]["message"]);
             return (string)json["status"] == "success" ?  new Response(ResponseType.Success,"Notification sent") 
