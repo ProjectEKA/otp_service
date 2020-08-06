@@ -1,10 +1,10 @@
 namespace In.ProjectEKA.OtpService.Otp
 {
-    using System;
-    using System.Threading.Tasks;
-    using Common;
+	using System;
+	using System.Threading.Tasks;
+	using Common;
 
-    public class OtpVerifier
+	public class OtpVerifier
     {
         private readonly IOtpRepository otpRepository;
         private readonly OtpProperties otpProperties;

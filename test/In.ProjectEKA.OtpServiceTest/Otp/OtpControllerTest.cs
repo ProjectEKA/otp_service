@@ -1,21 +1,21 @@
 namespace In.ProjectEKA.OtpServiceTest.Otp
 {
-    using System;
-    using System.Threading.Tasks;
-    using FluentAssertions;
-    using In.ProjectEKA.OtpService.Otp;
-    using Builder;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Moq;
-    using Xunit;
-    using Optional;
-    using OtpService.Clients;
-    using OtpService.Common;
-    using OtpService.Otp.Model;
-    using Action = OtpService.Otp.Action;
+	using System;
+	using System.Threading.Tasks;
+	using Builder;
+	using FluentAssertions;
+	using Microsoft.AspNetCore.Http;
+	using Microsoft.AspNetCore.Mvc;
+	using Moq;
+	using Optional;
+	using OtpService.Clients;
+	using OtpService.Common;
+	using OtpService.Otp;
+	using OtpService.Otp.Model;
+	using Xunit;
+	using Action = OtpService.Otp.Action;
 
-    [Collection("Otp Controller Tests")]
+	[Collection("Otp Controller Tests")]
     public class OtpControllerTest
     {
         private readonly OtpController otpController;

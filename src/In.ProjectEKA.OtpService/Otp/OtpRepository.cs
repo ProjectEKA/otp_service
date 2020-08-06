@@ -1,14 +1,14 @@
 namespace In.ProjectEKA.OtpService.Otp
 {
-    using System;
-    using System.Threading.Tasks;
-    using Common;
-    using Common.Logger;
-    using Model;
-    using Microsoft.EntityFrameworkCore;
-    using Optional;
+	using System;
+	using System.Threading.Tasks;
+	using Common;
+	using Common.Logger;
+	using Microsoft.EntityFrameworkCore;
+	using Model;
+	using Optional;
 
-    public class OtpRepository : IOtpRepository
+	public class OtpRepository : IOtpRepository
     {
         private readonly OtpContext otpContext;
 

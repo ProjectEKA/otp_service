@@ -1,12 +1,13 @@
 namespace In.ProjectEKA.OtpService
 {
-    using Microsoft.AspNetCore;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Serilog;
-    using System;
-    using Microsoft.Extensions.DependencyInjection;
-    public static class Program
+	using System;
+	using Microsoft.AspNetCore;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.DependencyInjection;
+	using Serilog;
+
+	public static class Program
     {
         public static void Main(string[] args) =>
             LogAndRunAsync(CreateWebHostBuilder(args).Build());

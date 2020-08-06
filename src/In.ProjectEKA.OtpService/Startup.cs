@@ -1,20 +1,20 @@
 namespace In.ProjectEKA.OtpService
 {
-    using System.Linq;
-    using System.Text.Json;
-    using Clients;
-    using Otp;
-    using Otp.Model;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-    using Notification;
-    using Serilog;
+	using System.Linq;
+	using System.Text.Json;
+	using Clients;
+	using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.DependencyInjection;
+	using Microsoft.Extensions.Hosting;
+	using Notification;
+	using Otp;
+	using Otp.Model;
+	using Serilog;
 
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {

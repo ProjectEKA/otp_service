@@ -1,11 +1,9 @@
-using System.Dynamic;
-
 namespace In.ProjectEKA.OtpService.Otp
 {
-    using System;
-    using System.Text;
+	using System;
+	using System.Text;
 
-    public class SmsServiceProperties
+	public class SmsServiceProperties
     {
         public string ClientId { get; }
 

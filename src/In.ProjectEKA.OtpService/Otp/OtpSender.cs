@@ -1,11 +1,11 @@
 namespace In.ProjectEKA.OtpService.Otp
 {
-    using System;
-    using System.Threading.Tasks;
-    using Clients;
-    using Common;
+	using System;
+	using System.Threading.Tasks;
+	using Clients;
+	using Common;
 
-    public class OtpSender : IOtpSender
+	public class OtpSender : IOtpSender
     {
         private readonly IOtpRepository otpRepository;
         private readonly IOtpGenerator otpGenerator;
