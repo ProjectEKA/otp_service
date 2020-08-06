@@ -1,16 +1,16 @@
 namespace In.ProjectEKA.OtpServiceTest.Otp
 {
-    using System;
-    using Builder;
-    using FluentAssertions;
-    using Moq;
-    using Optional;
-    using OtpService.Common;
-    using OtpService.Otp;
-    using OtpService.Otp.Model;
-    using Xunit;
+	using System;
+	using Builder;
+	using FluentAssertions;
+	using Moq;
+	using Optional;
+	using OtpService.Common;
+	using OtpService.Otp;
+	using OtpService.Otp.Model;
+	using Xunit;
 
-    public class OtpVerifierTest
+	public class OtpVerifierTest
     {
         private readonly OtpVerifier otpService;
         private readonly Mock<IOtpRepository> otpRepository = new Mock<IOtpRepository>();

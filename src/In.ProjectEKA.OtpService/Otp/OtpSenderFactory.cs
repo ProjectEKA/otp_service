@@ -1,9 +1,9 @@
 namespace In.ProjectEKA.OtpService.Otp
 {
-    using System.Collections.Generic;
-    using System.Linq;
+	using System.Collections.Generic;
+	using System.Linq;
 
-    public class OtpSenderFactory
+	public class OtpSenderFactory
     {
         private readonly IEnumerable<string> whitelistedNumbers;
         private readonly OtpSender otpSender;

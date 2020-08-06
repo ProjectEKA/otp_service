@@ -1,8 +1,8 @@
 namespace In.ProjectEKA.OtpService.Otp
 {
-    using Common;
+	using Common;
 
-    public class OtpGenerationDetail
+	public class OtpGenerationDetail
     {
         public string SystemName { get; set; }
         public Action Action { get; set; }

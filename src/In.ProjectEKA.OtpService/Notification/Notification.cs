@@ -1,8 +1,8 @@
 namespace In.ProjectEKA.OtpService.Notification
 {
-    using Newtonsoft.Json.Linq;
+	using Newtonsoft.Json.Linq;
 
-    public class Notification
+	public class Notification
     {
         public string Id { get; }
         public Communication Communication { get; }

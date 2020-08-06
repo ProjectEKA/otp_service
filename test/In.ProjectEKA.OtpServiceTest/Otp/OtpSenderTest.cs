@@ -1,17 +1,14 @@
-using FluentAssertions;
-using In.ProjectEKA.OtpService.Otp;
-using In.ProjectEKA.OtpService.Otp.Model;
-using In.ProjectEKA.OtpServiceTest.Otp.Builder;
-using Moq;
-using Optional;
-using Xunit;
-
 namespace In.ProjectEKA.OtpServiceTest.Otp
 {
-    using OtpService.Clients;
-    using OtpService.Common;
+	using Builder;
+	using FluentAssertions;
+	using Moq;
+	using OtpService.Clients;
+	using OtpService.Common;
+	using OtpService.Otp;
+	using Xunit;
 
-    [Collection("Otp Service Tests")]
+	[Collection("Otp Service Tests")]
     public class OtpSenderTest
     {
         private readonly OtpSender otpSender;

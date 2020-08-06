@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace In.ProjectEKA.OtpService.Migrations
+﻿namespace In.ProjectEKA.OtpService.Migrations
 {
-    // ReSharper disable once UnusedType.Global
+	using System;
+	using Microsoft.EntityFrameworkCore.Migrations;
+
+	// ReSharper disable once UnusedType.Global
     public partial class IntroduceRequestedAt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

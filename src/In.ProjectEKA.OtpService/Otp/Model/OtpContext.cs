@@ -1,8 +1,8 @@
 namespace In.ProjectEKA.OtpService.Otp.Model
 {
-    using Microsoft.EntityFrameworkCore;
+	using Microsoft.EntityFrameworkCore;
 
-    public class OtpContext : DbContext
+	public class OtpContext : DbContext
     {
         public DbSet<OtpRequest> OtpRequests { get; set; }
 

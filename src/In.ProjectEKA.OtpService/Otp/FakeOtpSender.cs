@@ -1,9 +1,9 @@
 namespace In.ProjectEKA.OtpService.Otp
 {
-    using System.Threading.Tasks;
-    using Common;
+	using System.Threading.Tasks;
+	using Common;
 
-    public class FakeOtpSender : IOtpSender
+	public class FakeOtpSender : IOtpSender
     {
         private readonly IOtpRepository otpRepository;
 

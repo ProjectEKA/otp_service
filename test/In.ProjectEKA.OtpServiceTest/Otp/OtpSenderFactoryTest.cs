@@ -1,11 +1,11 @@
 namespace In.ProjectEKA.OtpServiceTest.Otp
 {
-    using System.Collections.Generic;
-    using FluentAssertions;
-    using OtpService.Otp;
-    using Xunit;
+	using System.Collections.Generic;
+	using FluentAssertions;
+	using OtpService.Otp;
+	using Xunit;
 
-    public class OtpSenderFactoryTest
+	public class OtpSenderFactoryTest
     {
         [Theory]
         [InlineData("9999999999")]

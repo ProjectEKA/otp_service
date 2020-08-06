@@ -1,15 +1,14 @@
-using FluentAssertions;
-using In.ProjectEKA.OtpService.Otp;
-using In.ProjectEKA.OtpService.Otp.Model;
-using In.ProjectEKA.OtpServiceTest.Otp.Builder;
-using Microsoft.EntityFrameworkCore;
-using Xunit;
-
 namespace In.ProjectEKA.OtpServiceTest.Otp
 {
-    using OtpService.Common;
+	using Builder;
+	using FluentAssertions;
+	using Microsoft.EntityFrameworkCore;
+	using OtpService.Common;
+	using OtpService.Otp;
+	using OtpService.Otp.Model;
+	using Xunit;
 
-    [Collection("Otp Repository Tests")]
+	[Collection("Otp Repository Tests")]
     public class OtpRepositoryTest
     {
         public OtpContext GetOtpContext()
