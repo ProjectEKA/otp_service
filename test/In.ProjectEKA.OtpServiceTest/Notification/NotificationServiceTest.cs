@@ -11,11 +11,12 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
 	public class NotificationServiceTest
     {
         private readonly Mock<ISmsClient> notificationWebHandler = new Mock<ISmsClient>();
+        private readonly NotificationProperties notificationProperties = new NotificationProperties("consent manager ID");
         private readonly NotificationService notificationService;
 
         public NotificationServiceTest()
         {
-            notificationService = new NotificationService(notificationWebHandler.Object);
+            notificationService = new NotificationService(notificationWebHandler.Object, notificationProperties);
         }
 
         [Fact]

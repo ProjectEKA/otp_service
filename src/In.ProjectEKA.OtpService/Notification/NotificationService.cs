@@ -8,10 +8,12 @@ namespace In.ProjectEKA.OtpService.Notification
 	public class NotificationService : INotificationService
 	{
 		private readonly ISmsClient smsClient;
+		private readonly NotificationProperties notificationProperties;
 
-		public NotificationService(ISmsClient smsClient)
+		public NotificationService(ISmsClient smsClient, NotificationProperties notificationProperties)
 		{
 			this.smsClient = smsClient;
+			this.notificationProperties = notificationProperties;
 		}
 
 		public async Task<Response> SendNotification(Notification notification)
@@ -38,11 +40,11 @@ namespace In.ProjectEKA.OtpService.Notification
 			return message;
 		}
 
-		private static string GenerateConsentManagerIdRecoveredMessage(JToken notificationContent)
+		private string GenerateConsentManagerIdRecoveredMessage(JToken notificationContent)
 		{
 			var consentManagerIdContent = notificationContent.ToObject<ConsentManagerIdContent>();
 			var message =
-				$"The consent manager ID associated with you details is {consentManagerIdContent.ConsentManagerId}." +
+				$"The {notificationProperties.IdName} associated with your details is {consentManagerIdContent.ConsentManagerId}." +
 				" To make sure that your account is secure, we request you to reset the password";
 			return message;
 		}
