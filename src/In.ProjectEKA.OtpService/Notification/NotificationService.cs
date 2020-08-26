@@ -44,7 +44,7 @@ namespace In.ProjectEKA.OtpService.Notification
 		{
 			var consentManagerIdContent = notificationContent.ToObject<ConsentManagerIdContent>();
 			var message =
-				$"The {notificationProperties.IdName} associated with your details is {consentManagerIdContent.ConsentManagerId}." +
+				$"The {notificationProperties.PatientIdName} associated with your details is {consentManagerIdContent.ConsentManagerId}." +
 				" To make sure that your account is secure, we request you to reset the password";
 			return message;
 		}
