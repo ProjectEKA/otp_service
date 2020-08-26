@@ -2,11 +2,11 @@ namespace In.ProjectEKA.OtpService.Notification
 {
     public class NotificationProperties
     {
-        public string IdName { get; }
+       public string PatientIdName { get; }
         
-        public NotificationProperties(string idName)
+        public NotificationProperties(string patientIdName)
         {
-            IdName = idName;
+            PatientIdName = patientIdName;
         }
     }
 }
