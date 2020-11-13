@@ -29,7 +29,8 @@ namespace In.ProjectEKA.OtpService
                 .AddDbContext<OtpContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")))
                 .AddSingleton(new OtpProperties(Configuration.GetValue<int>("expiryInMinutes")))
-                .AddSingleton(new NotificationProperties(Configuration.GetValue<string>("patientIdName")))
+                .AddSingleton(new NotificationProperties(Configuration.GetValue<string>("patientIdName"),
+                    Configuration.GetValue<string>("whitelisted:numbers")?.Split(",").ToList()))
                 .AddScoped<IOtpRepository, OtpRepository>()
                 .AddScoped<IOtpGenerator, OtpGenerator>()
                 .AddScoped<INotificationService, NotificationService>()
