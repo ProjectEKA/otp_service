@@ -18,6 +18,10 @@ namespace In.ProjectEKA.OtpService.Notification
 
 		public async Task<Response> SendNotification(Notification notification)
 		{
+			if (notificationProperties.isWhiteListed(notification?.Communication?.Value))
+			{
+				return new Response(ResponseType.Success, "Notification sent");
+			}
 			return notification.Action switch
 			{
 				Action.ConsentRequestCreated => await smsClient.Send(

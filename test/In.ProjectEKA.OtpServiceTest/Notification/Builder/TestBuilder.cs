@@ -26,5 +26,14 @@ namespace In.ProjectEKA.OtpServiceTest.Notification.Builder
                 new JObject(), 
                 Action.ConsentManagerIdRecovered);
         }
+
+        public static Notification GenerateNotificationMessageWithWhiTeListedMobileNo()
+        {
+            var fakerNotification = Faker();
+            return new Notification(fakerNotification.Random.Hash(),
+                new Communication(CommunicationType.Mobile, "+91-8888888888"),
+                new JObject(),
+                Action.ConsentRequestCreated);
+        }
     }
 }

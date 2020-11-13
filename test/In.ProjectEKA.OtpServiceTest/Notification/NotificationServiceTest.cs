@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace In.ProjectEKA.OtpServiceTest.Notification
 {
 	using Builder;
@@ -11,7 +13,12 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
 	public class NotificationServiceTest
     {
         private readonly Mock<ISmsClient> notificationWebHandler = new Mock<ISmsClient>();
-        private readonly NotificationProperties notificationProperties = new NotificationProperties("consent manager ID");
+        private readonly NotificationProperties notificationProperties = new NotificationProperties("consent manager ID",
+            new List<string>
+            {
+                "+91-9999999999",
+                "+91-8888888888"
+            });
         private readonly NotificationService notificationService;
 
         public NotificationServiceTest()
@@ -65,6 +72,17 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
             var response = await notificationService.SendNotification(TestBuilder.GenerateNotificationMessageForConsentManagerIdRecovered());
 
             response.ResponseType.Should().Be(expectedResponse.ResponseType);
+        }
+        
+        [Fact]
+        private async void ReturnSuccessResponseIfMobileNumberIsWhiteListed()
+        {
+            var expectedResponse = new Response(ResponseType.Success, "Notification sent");
+
+            var response = await notificationService.SendNotification(TestBuilder.GenerateNotificationMessageWithWhiTeListedMobileNo());
+
+            response.ResponseType.Should().Be(expectedResponse.ResponseType);
+            response.Message.Should().Be(expectedResponse.Message);
         }
 
     }
