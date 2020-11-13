@@ -2,8 +2,6 @@ namespace In.ProjectEKA.OtpService.Otp
 {
 	using System.Collections.Generic;
 	using System.Linq;
-    using Common.Logger;
-    using System;
 
 	public class OtpSenderFactory
     {
@@ -22,16 +20,8 @@ namespace In.ProjectEKA.OtpService.Otp
 
         public IOtpSender ServiceFor(string mobileNumber)
         {
-            Console.WriteLine("Checking for mobile number");
-            Console.WriteLine(mobileNumber);
-            Console.WriteLine("All numbers");
-            foreach (string s in whitelistedNumbers)
+            if (mobileNumber != null && whitelistedNumbers.Any(number => number.Contains(mobileNumber)))
             {
-                Console.WriteLine(s);
-            }
-            if (mobileNumber != null && whitelistedNumbers.Any(number => number.Contains(mobileNumber)))            
-            {
-                Console.WriteLine("matched");
                 return fakeOtpSender;
             }
 
