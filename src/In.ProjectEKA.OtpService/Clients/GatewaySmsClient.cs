@@ -63,6 +63,7 @@ namespace In.ProjectEKA.OtpService.Clients
                 var response = await client
                     .SendAsync(request)
                     .ConfigureAwait(false);
+                Log.Debug($"Received response for sms send {response}");
                 if (response.StatusCode == (HttpStatusCode) 200)
                     return new Response(ResponseType.Success, "Notification sent");
                 Log.Error(response.StatusCode,response.Content);
@@ -104,6 +105,7 @@ namespace In.ProjectEKA.OtpService.Clients
                 var responseMessage = await client.SendAsync(request)
                     .ConfigureAwait(false);
                 var response = await responseMessage.Content.ReadAsStringAsync();
+                Log.Debug($"Received response for token {response}");
 
                 var definition = new {access_token = "", token_type = ""};
                 var result = JsonConvert
