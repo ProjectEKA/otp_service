@@ -9,6 +9,7 @@ namespace In.ProjectEKA.OtpService.Clients
 	using System.Net.Mime;
 	using System.Text;
 	using System.Threading.Tasks;
+    using System.Runtime.Caching;
 	using Common;
 	using Common.Logger;
 	using Microsoft.Net.Http.Headers;
@@ -21,11 +22,13 @@ namespace In.ProjectEKA.OtpService.Clients
     {
         private readonly SmsServiceProperties smsServiceProperties;
         private readonly HttpClient client;
+        private MemoryCache cache;
 
         public GatewaySmsClient(SmsServiceProperties smsServiceProperties)
         {
             this.smsServiceProperties = smsServiceProperties;
             client = new HttpClient();
+            cache = MemoryCache.Default;
         }
 
         public async Task<Response> Send(string phoneNumber, string message)
@@ -34,9 +37,21 @@ namespace In.ProjectEKA.OtpService.Clients
             if (phoneNumber.Contains('-'))
                 phoneNumber = phoneNumber.Split('-').Last();
 
-            var token = await GetToken().ConfigureAwait(false);
-
-            var tokenValue = token.ValueOr("");
+            var tokenValue = "";            
+            if(cache.Contains("accessToken"))
+            {
+                tokenValue = cache.Get("accessToken") as string;
+            }
+            else{
+                var token = await GetToken().ConfigureAwait(false);
+                tokenValue = token.ValueOr("");
+                if(tokenValue != "")
+                {
+                    CacheItemPolicy policy = new CacheItemPolicy();  
+                    policy.AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(60); //todo: from properties
+                    cache.Set("accessToken", tokenValue, policy);
+                }                
+            }            
 
             if (tokenValue == "")
             {
