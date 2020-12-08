@@ -37,21 +37,8 @@ namespace In.ProjectEKA.OtpService.Clients
             if (phoneNumber.Contains('-'))
                 phoneNumber = phoneNumber.Split('-').Last();
 
-            var tokenValue = "";            
-            if(cache.Contains("accessToken"))
-            {
-                tokenValue = cache.Get("accessToken") as string;
-            }
-            else{
-                var token = await GetToken().ConfigureAwait(false);
-                tokenValue = token.ValueOr("");
-                if(tokenValue != "")
-                {
-                    CacheItemPolicy policy = new CacheItemPolicy();  
-                    policy.AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(60); //todo: from properties
-                    cache.Set("accessToken", tokenValue, policy);
-                }                
-            }            
+            var accessToken = "accessToken";
+            var tokenValue = await getAccessToken(accessToken);            
 
             if (tokenValue == "")
             {
@@ -89,6 +76,25 @@ namespace In.ProjectEKA.OtpService.Clients
             }
 
             return new Response(ResponseType.Success, "Error in sending notification");
+        }
+
+        private async Task<string> getAccessToken(string accessToken)
+        {
+            if (cache.Contains(accessToken))
+            {
+                return cache.Get(accessToken) as string;
+            }
+
+            var token = await GetToken().ConfigureAwait(false);
+            var tokenValue = token.ValueOr("");
+            if (tokenValue != "")
+            {
+                CacheItemPolicy policy = new CacheItemPolicy();
+                policy.AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(smsServiceProperties.AccessTokenTTL);
+                cache.Set(accessToken, tokenValue, policy);
+            }
+
+            return tokenValue;
         }
 
         public async Task<Option<string>> GetToken()
