@@ -80,7 +80,7 @@ namespace In.ProjectEKA.OtpService.Clients
 
         private async Task<string> getAccessToken(string accessToken)
         {
-            if (cache.Contains(accessToken))
+            if (cache.Contains(accessToken) && cache.Get(accessToken) != null)
             {
                 return cache.Get(accessToken) as string;
             }
