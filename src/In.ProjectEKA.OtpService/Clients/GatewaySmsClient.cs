@@ -11,6 +11,7 @@ namespace In.ProjectEKA.OtpService.Clients
 	using System.Net.Mime;
 	using System.Text;
 	using System.Threading.Tasks;
+    using System.Runtime.Caching;
 	using Common;
 	using Common.Logger;
 	using Microsoft.Net.Http.Headers;
@@ -23,11 +24,13 @@ namespace In.ProjectEKA.OtpService.Clients
     {
         private readonly SmsServiceProperties smsServiceProperties;
         private readonly HttpClient client;
+        private MemoryCache cache;
 
         public GatewaySmsClient(SmsServiceProperties smsServiceProperties)
         {
             this.smsServiceProperties = smsServiceProperties;
             client = new HttpClient();
+            cache = MemoryCache.Default;
         }
 
         public async Task<Response> Send(string phoneNumber, string message, string templateId)
@@ -53,7 +56,7 @@ namespace In.ProjectEKA.OtpService.Clients
 
                 var response = await client
                     .SendAsync(request)
-                    .ConfigureAwait(false);
+                    .ConfigureAwait(false);                
                 if (response.StatusCode == (HttpStatusCode) 200)
                     return new Response(ResponseType.Success, "Notification sent");
                 Log.Error(response.StatusCode,response.Content);
