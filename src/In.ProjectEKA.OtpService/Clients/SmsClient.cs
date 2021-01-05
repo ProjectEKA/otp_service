@@ -1,3 +1,5 @@
+using System;
+
 namespace In.ProjectEKA.OtpService.Clients
 {
 	using System.Collections.Specialized;
@@ -19,7 +21,7 @@ namespace In.ProjectEKA.OtpService.Clients
             this.configuration = configuration;
         }
 
-        public async Task<Response> Send(string phoneNumber, string message)
+        public async Task<Response> Send(string phoneNumber, string message, string templateID)
         {
             var notification = HttpUtility.UrlEncode(message);
             using var webClient = new WebClient();

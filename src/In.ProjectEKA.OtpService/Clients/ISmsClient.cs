@@ -1,3 +1,5 @@
+using System;
+
 namespace In.ProjectEKA.OtpService.Clients
 {
 	using System.Threading.Tasks;
@@ -5,6 +7,6 @@ namespace In.ProjectEKA.OtpService.Clients
 
 	public interface ISmsClient
     {
-        public Task<Response> Send(string phoneNumber, string message);
+        public Task<Response> Send(string phoneNumber, string message, String templateID);
     }
 }

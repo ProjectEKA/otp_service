@@ -1,3 +1,5 @@
+using System.Web;
+
 namespace In.ProjectEKA.OtpService.Clients
 {
 	using System;
@@ -28,38 +30,27 @@ namespace In.ProjectEKA.OtpService.Clients
             client = new HttpClient();
         }
 
-        public async Task<Response> Send(string phoneNumber, string message)
+        public async Task<Response> Send(string phoneNumber, string message, string templateId)
         {
-            
+            var phoneNumberWithCountryCode = phoneNumber;
             if (phoneNumber.Contains('-'))
-                phoneNumber = phoneNumber.Split('-').Last();
-
-            var token = await GetToken().ConfigureAwait(false);
-
-            var tokenValue = token.ValueOr("");
-
-            if (tokenValue == "")
-            {
-                return new Response(ResponseType.InternalServerError, "Unable to get token");
-            }
+                phoneNumberWithCountryCode = phoneNumber.Replace("+", string.Empty).Replace("-", String.Empty);
 
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post,
-                    smsServiceProperties.SmsApi);
-                request.Headers.Add(HeaderNames.Authorization, tokenValue);
-                var requestBody = new
-                {
-                    msisdn = phoneNumber, message
-                };
+                var uriBuilder = new UriBuilder(smsServiceProperties.SmsApi);
+                uriBuilder.Port = -1;
+                var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+                query["username"] = smsServiceProperties.ClientId;
+                query["pin"] = smsServiceProperties.ClientSecret;
+                query["message"] = message;
+                query["mnumber"] = phoneNumberWithCountryCode;
+                query["dlt_template_id"] = templateId;
+                query["signature"] = smsServiceProperties.Signature;
+                query["dlt_entity_id"] = smsServiceProperties.EntityId;
+                
+                var request = new HttpRequestMessage(HttpMethod.Get, query.ToString());
 
-                var jsonData = JsonConvert.SerializeObject(requestBody);
-
-                //Parse the json object
-                var jsonObject = JObject.Parse(jsonData);
-
-                request.Content = new StringContent(jsonObject.ToString(), Encoding.UTF8,
-                    MediaTypeNames.Application.Json);
                 var response = await client
                     .SendAsync(request)
                     .ConfigureAwait(false);
@@ -74,48 +65,6 @@ namespace In.ProjectEKA.OtpService.Clients
             }
 
             return new Response(ResponseType.Success, "Error in sending notification");
-        }
-
-        public async Task<Option<string>> GetToken()
-        {
-            try
-            {
-                var auth = smsServiceProperties.ClientId + ":" + smsServiceProperties.ClientSecret;
-
-                var requestContent = new List<KeyValuePair<string, string>>
-                {
-                    new KeyValuePair<string, string>("grant_type", "client_credentials")
-                };
-
-                client.DefaultRequestHeaders
-                    .Accept
-                    .Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue(
-                        "Basic", Convert.ToBase64String(
-                            Encoding.ASCII.GetBytes(
-                                auth)));
-
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post,
-                    smsServiceProperties.TokenApi);
-                request.Content = new FormUrlEncodedContent(requestContent);
-
-                var responseMessage = await client.SendAsync(request)
-                    .ConfigureAwait(false);
-                var response = await responseMessage.Content.ReadAsStringAsync();
-
-                var definition = new {access_token = "", token_type = ""};
-                var result = JsonConvert
-                    .DeserializeAnonymousType(response, definition);
-                var token = Option.Some($"Bearer {result.access_token}");
-                return token;
-            }
-            catch (Exception exception)
-            {
-                Log.Error(exception, exception.StackTrace);
-                return Option.None<string>();
-            }
         }
     }
 }
