@@ -25,7 +25,7 @@ namespace In.ProjectEKA.OtpService.Otp
             var otp = otpGenerator.GenerateOtp();
             var generateMessage = GenerateMessage(otpGenerationRequest.GenerationDetail, otp);
             
-            var sendOtp = await smsClient.Send(otpGenerationRequest.Communication.Value, generateMessage);
+            var sendOtp = await smsClient.Send(otpGenerationRequest.Communication.Value, generateMessage, otpGenerationRequest.GenerationDetail.GetTemplateID());
             if (sendOtp.ResponseType == ResponseType.Success)
             {
                 return await otpRepository.Save(otp, otpGenerationRequest.SessionId);

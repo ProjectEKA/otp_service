@@ -8,19 +8,18 @@ namespace In.ProjectEKA.OtpService.Otp
         public string ClientId { get; }
 
         public string ClientSecret { get; }
-        
-        public string TokenApi { get; }
-        
         public string SmsApi { get; }
-        
+        public string Signature { get; }
+        public string EntityId { get; }
         public int AccessTokenTTL { get; }
 
-        public SmsServiceProperties(string clientId, string clientSecret, string tokenApi, string smsApi, int accessTokenTtl)
+        public SmsServiceProperties(string clientId, string clientSecret, string smsApi, string signature, string entityId, int accessTokenTtl)
         {
             ClientId = GetDecodedString(clientId);
             ClientSecret = GetDecodedString(clientSecret);
-            TokenApi = GetDecodedString(tokenApi);
             SmsApi = GetDecodedString(smsApi);
+            Signature = GetDecodedString(signature);
+            EntityId = GetDecodedString(entityId);
             AccessTokenTTL = accessTokenTtl;
         }
 

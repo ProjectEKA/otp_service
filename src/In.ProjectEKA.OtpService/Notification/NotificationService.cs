@@ -1,10 +1,10 @@
+using System.Threading.Tasks;
+using In.ProjectEKA.OtpService.Clients;
+using In.ProjectEKA.OtpService.Common;
+using Newtonsoft.Json.Linq;
+
 namespace In.ProjectEKA.OtpService.Notification
 {
-	using System.Threading.Tasks;
-	using Clients;
-	using Common;
-	using Newtonsoft.Json.Linq;
-
 	public class NotificationService : INotificationService
 	{
 		private readonly ISmsClient smsClient;
@@ -26,10 +26,10 @@ namespace In.ProjectEKA.OtpService.Notification
 			{
 				Action.ConsentRequestCreated => await smsClient.Send(
 					notification.Communication.Value,
-					GenerateConsentRequestMessage(notification.Content)),
+					GenerateConsentRequestMessage(notification.Content), notification.GetTemplateID()),
 				Action.ConsentManagerIdRecovered => await smsClient.Send(
 					notification.Communication.Value,
-					GenerateConsentManagerIdRecoveredMessage(notification.Content)),
+					GenerateConsentManagerIdRecoveredMessage(notification.Content), notification.GetTemplateID()),
 				_ => new Response(ResponseType.InternalServerError, "")
 				};
 		}

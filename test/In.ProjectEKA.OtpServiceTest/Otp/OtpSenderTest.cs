@@ -1,14 +1,14 @@
+using FluentAssertions;
+using In.ProjectEKA.OtpService.Clients;
+using In.ProjectEKA.OtpService.Common;
+using In.ProjectEKA.OtpService.Otp;
+using In.ProjectEKA.OtpServiceTest.Otp.Builder;
+using Moq;
+using Xunit;
+
 namespace In.ProjectEKA.OtpServiceTest.Otp
 {
-	using Builder;
-	using FluentAssertions;
-	using Moq;
-	using OtpService.Clients;
-	using OtpService.Common;
-	using OtpService.Otp;
-	using Xunit;
-
-	[Collection("Otp Service Tests")]
+    [Collection("Otp Service Tests")]
     public class OtpSenderTest
     {
         private readonly OtpSender otpSender;
@@ -29,12 +29,12 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
             var systemName = TestBuilder.Faker().Random.Word();
             var phoneNumber = TestBuilder.Faker().Phone.PhoneNumber();
             var testOtpResponse = new Response(ResponseType.Success, "Otp Created");
-            var otpCreationDetail = new OtpGenerationDetail(systemName, Action.REGISTRATION.ToString());
+            var otpCreationDetail = new OtpGenerationDetail(systemName, Action.FORGOT_PIN.ToString());
             var otpRequest = new OtpGenerationRequest(sessionId, new Communication("MOBILE"
                 , phoneNumber), otpCreationDetail);
             var generatedMessage = otpSender.GenerateMessage(otpCreationDetail, otpToken);
             otpGenerator.Setup(e => e.GenerateOtp()).Returns(otpToken);
-            otpWebHandler.Setup(e => e.Send(otpRequest.Communication.Value, generatedMessage))
+            otpWebHandler.Setup(e => e.Send(otpRequest.Communication.Value, generatedMessage, otpRequest.GenerationDetail.GetTemplateID()))
                 .ReturnsAsync(testOtpResponse);
             otpRepository.Setup(e => e.Save(otpToken, sessionId))
                 .ReturnsAsync(testOtpResponse);

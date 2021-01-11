@@ -1,16 +1,15 @@
 using System.Collections.Generic;
+using FluentAssertions;
+using In.ProjectEKA.OtpService.Clients;
+using In.ProjectEKA.OtpService.Common;
+using In.ProjectEKA.OtpService.Notification;
+using In.ProjectEKA.OtpServiceTest.Notification.Builder;
+using Moq;
+using Xunit;
 
 namespace In.ProjectEKA.OtpServiceTest.Notification
 {
-	using Builder;
-	using FluentAssertions;
-	using Moq;
-	using OtpService.Clients;
-	using OtpService.Common;
-	using OtpService.Notification;
-	using Xunit;
-
-	public class NotificationServiceTest
+    public class NotificationServiceTest
     {
         private readonly Mock<ISmsClient> notificationWebHandler = new Mock<ISmsClient>();
         private readonly NotificationProperties notificationProperties = new NotificationProperties("consent manager ID",
@@ -31,7 +30,7 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
         {
             var expectedResponse = new Response(ResponseType.Success, "Notification sent");
             notificationWebHandler.Setup(e => e.Send(It.IsAny<string>(),
-                    It.IsAny<string>())).ReturnsAsync(expectedResponse);
+                    It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(expectedResponse);
 
             var response = await notificationService.SendNotification(TestBuilder.GenerateNotificationMessage());
 
@@ -43,7 +42,7 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
         {
             var expectedResponse = new Response(ResponseType.Success, "Notification sent");
             notificationWebHandler.Setup(e => e.Send(It.IsAny<string>(),
-                It.IsAny<string>())).ReturnsAsync(expectedResponse);
+                It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(expectedResponse);
 
             var response = await notificationService.SendNotification(TestBuilder.GenerateNotificationMessageForConsentManagerIdRecovered());
 
@@ -55,7 +54,7 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
         {
             var expectedResponse = new Response(ResponseType.InternalServerError, "Internal server error");
             notificationWebHandler.Setup(e => e.Send(It.IsAny<string>(),
-                It.IsAny<string>())).ReturnsAsync(expectedResponse);
+                It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(expectedResponse);
 
             var response = await notificationService.SendNotification(TestBuilder.GenerateNotificationMessage());
 
@@ -67,7 +66,7 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
         {
             var expectedResponse = new Response(ResponseType.InternalServerError, "Internal server error");
             notificationWebHandler.Setup(e => e.Send(It.IsAny<string>(),
-                It.IsAny<string>())).ReturnsAsync(expectedResponse);
+                It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(expectedResponse);
 
             var response = await notificationService.SendNotification(TestBuilder.GenerateNotificationMessageForConsentManagerIdRecovered());
 

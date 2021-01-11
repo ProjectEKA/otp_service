@@ -1,9 +1,19 @@
+using System;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+
 namespace In.ProjectEKA.OtpService.Notification
 {
-	using Newtonsoft.Json.Linq;
-
-	public class Notification
+    public class Notification
     {
+        private static Dictionary<Action, String> templateIDs;
+        static Notification()
+        {
+            templateIDs = new Dictionary<Action, string>();
+            templateIDs.Add(Action.ConsentRequestCreated, "1007160803224559069");
+            templateIDs.Add(Action.ConsentManagerIdRecovered, "1007160803226874870");
+        }
+        
         public string Id { get; }
         public Communication Communication { get; }
         public JObject Content { get; }
@@ -15,6 +25,11 @@ namespace In.ProjectEKA.OtpService.Notification
             Communication = communication;
             Content = content;
             Action = action;
+        }
+        
+        public String GetTemplateID()
+        {
+            return templateIDs[Action];
         }
     }
 }

@@ -1,21 +1,21 @@
+using System;
+using System.Threading.Tasks;
+using FluentAssertions;
+using In.ProjectEKA.OtpService.Clients;
+using In.ProjectEKA.OtpService.Common;
+using In.ProjectEKA.OtpService.Otp;
+using In.ProjectEKA.OtpService.Otp.Model;
+using In.ProjectEKA.OtpServiceTest.Otp.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using Optional;
+using Xunit;
+using Action = In.ProjectEKA.OtpService.Otp.Action;
+
 namespace In.ProjectEKA.OtpServiceTest.Otp
 {
-	using System;
-	using System.Threading.Tasks;
-	using Builder;
-	using FluentAssertions;
-	using Microsoft.AspNetCore.Http;
-	using Microsoft.AspNetCore.Mvc;
-	using Moq;
-	using Optional;
-	using OtpService.Clients;
-	using OtpService.Common;
-	using OtpService.Otp;
-	using OtpService.Otp.Model;
-	using Xunit;
-	using Action = OtpService.Otp.Action;
-
-	[Collection("Otp Controller Tests")]
+    [Collection("Otp Controller Tests")]
     public class OtpControllerTest
     {
         private readonly OtpController otpController;
@@ -42,7 +42,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
             var otp = TestBuilder.Faker().Random.String();
             var phoneNumber = TestBuilder.Faker().Random.String();
             var otpRequest = new OtpGenerationRequest(sessionId, new Communication("MOBILE"
-                , phoneNumber), new OtpGenerationDetail(systemName, Action.REGISTRATION.ToString()));
+                , phoneNumber), new OtpGenerationDetail(systemName, Action.FORGOT_PIN.ToString()));
             var expectedResult = new Response(ResponseType.Success, "Otp Created");
             var generateMessage = new OtpSender(otpRepository.Object,
                                                       otpGenerator.Object,
@@ -50,7 +50,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
                                                       new OtpProperties(5))
                 .GenerateMessage(otpRequest.GenerationDetail, otp);
             otpGenerator.Setup(e => e.GenerateOtp()).Returns(otp);
-            smsClient.Setup(e => e.Send(phoneNumber, generateMessage)).ReturnsAsync(expectedResult);
+            smsClient.Setup(e => e.Send(phoneNumber, generateMessage, otpRequest.GenerationDetail.GetTemplateID())).ReturnsAsync(expectedResult);
             otpRepository.Setup(e => e.Save(otp, sessionId)).ReturnsAsync(expectedResult);
 
             var response = await otpController.GenerateOtp(otpRequest);
@@ -74,7 +74,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
             var phoneNumber = TestBuilder.Faker().Random.String();
             var systemName = TestBuilder.Faker().Random.Word();
             var otpRequest = new OtpGenerationRequest(sessionId, new Communication("MOBILE"
-                , phoneNumber), new OtpGenerationDetail(systemName, Action.REGISTRATION.ToString()));
+                , phoneNumber), new OtpGenerationDetail(systemName, Action.FORGOT_PIN.ToString()));
             var generateMessage = new OtpSender(otpRepository.Object,
                     otpGenerator.Object,
                     smsClient.Object,
@@ -82,7 +82,7 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
                 .GenerateMessage(otpRequest.GenerationDetail, otp);
             var expectedResult = new Response(ResponseType.InternalServerError, "OtpGeneration Saving failed");
             otpGenerator.Setup(e => e.GenerateOtp()).Returns(otp);
-            smsClient.Setup(e => e.Send(phoneNumber, generateMessage)).ReturnsAsync(expectedResult);
+            smsClient.Setup(e => e.Send(phoneNumber, generateMessage, otpRequest.GenerationDetail.GetTemplateID())).ReturnsAsync(expectedResult);
 
             var response = await otpController.GenerateOtp(otpRequest) as ObjectResult;
 

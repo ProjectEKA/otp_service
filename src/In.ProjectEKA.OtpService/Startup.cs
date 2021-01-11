@@ -53,10 +53,10 @@ namespace In.ProjectEKA.OtpService
                     .AddSingleton(new SmsServiceProperties(
                         Configuration.GetValue<string>("SmsService:ClientId"),
                         Configuration.GetValue<string>("SmsService:ClientSecret"),
-                        Configuration.GetValue<string>("SmsService:tokenApi"),
                         Configuration.GetValue<string>("SmsService:SmsApi"),
-                        Configuration.GetValue<int>("SmsService:AccessTokenTTLInMin")
-                    ));
+                        Configuration.GetValue<string>("SmsService:Signature"),
+                        Configuration.GetValue<string>("SmsService:EntityId"),
+                        Configuration.GetValue<int>("SmsService:AccessTokenTTLInMin")));
             }
             else
             {
