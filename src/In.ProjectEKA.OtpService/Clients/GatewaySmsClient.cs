@@ -51,8 +51,10 @@ namespace In.ProjectEKA.OtpService.Clients
                 query["dlt_template_id"] = templateId;
                 query["signature"] = smsServiceProperties.Signature;
                 query["dlt_entity_id"] = smsServiceProperties.EntityId;
+
+                uriBuilder.Query = query.ToString();
                 
-                var request = new HttpRequestMessage(HttpMethod.Get, query.ToString());
+                var request = new HttpRequestMessage(HttpMethod.Get, uriBuilder.ToString());
 
                 var response = await client
                     .SendAsync(request)
