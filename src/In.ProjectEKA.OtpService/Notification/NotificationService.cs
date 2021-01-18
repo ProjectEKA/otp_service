@@ -27,6 +27,9 @@ namespace In.ProjectEKA.OtpService.Notification
 				Action.ConsentRequestCreated => await smsClient.Send(
 					notification.Communication.Value,
 					GenerateConsentRequestMessage(notification.Content), notification.GetTemplateID()),
+				Action.HIPVisitSMSNotification => await smsClient.Send(
+					notification.Communication.Value,
+					GenerateHIPSMSNotificationMessage(notification.Content), notification.GetTemplateID()),
 				Action.ConsentManagerIdRecovered => await smsClient.Send(
 					notification.Communication.Value,
 					GenerateConsentManagerIdRecoveredMessage(notification.Content), notification.GetTemplateID()),
@@ -50,6 +53,15 @@ namespace In.ProjectEKA.OtpService.Notification
 			var message =
 				$"The {notificationProperties.PatientIdName} associated with your details is {consentManagerIdContent.ConsentManagerId}." +
 				" To make sure that your account is secure, we request you to reset the password";
+			return message;
+		}
+		
+		private string GenerateHIPSMSNotificationMessage(JToken notificationContent)
+		{
+			var content = notificationContent.ToObject<HIPSMSNotificationContent>();
+			var message =
+				$"HI {content.ReceiverName}, records for you recent visit at {content.HospitalName} can now be accessed digitally, " +
+				$"please use the link below {content.DeeplinkUrl}";
 			return message;
 		}
 	}

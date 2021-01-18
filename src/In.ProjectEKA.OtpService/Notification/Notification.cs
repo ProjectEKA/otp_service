@@ -12,6 +12,7 @@ namespace In.ProjectEKA.OtpService.Notification
             templateIDs = new Dictionary<Action, string>();
             templateIDs.Add(Action.ConsentRequestCreated, "1007160803224559069");
             templateIDs.Add(Action.ConsentManagerIdRecovered, "1007160803226874870");
+            templateIDs.Add(Action.HIPVisitSMSNotification, "9999999999999");
         }
         
         public string Id { get; }
