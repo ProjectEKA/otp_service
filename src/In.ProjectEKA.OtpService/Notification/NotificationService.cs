@@ -60,8 +60,8 @@ namespace In.ProjectEKA.OtpService.Notification
 		{
 			var content = notificationContent.ToObject<HIPSMSNotificationContent>();
 			var message =
-				$"HI {content.ReceiverName}, records for you recent visit at {content.HospitalName} can now be accessed digitally, " +
-				$"please use the link below {content.DeeplinkUrl}";
+				$"Hi {content.ReceiverName}, You can now access your {content.CareContextInfo} " +
+				$"from {content.HospitalName} digitally, please use the link below {content.DeeplinkUrl}";
 			return message;
 		}
 	}
