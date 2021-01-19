@@ -3,6 +3,7 @@ namespace In.ProjectEKA.OtpService.Notification
     public enum Action
     {
         ConsentRequestCreated, 
-        ConsentManagerIdRecovered
+        ConsentManagerIdRecovered,
+        HIPVisitSMSNotification
     }
 }
