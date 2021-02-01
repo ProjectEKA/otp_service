@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using In.ProjectEKA.OtpService.Clients;
 using In.ProjectEKA.OtpService.Common;
+using In.ProjectEKA.OtpService.Otp;
 using Newtonsoft.Json.Linq;
 
 namespace In.ProjectEKA.OtpService.Notification
@@ -9,11 +10,13 @@ namespace In.ProjectEKA.OtpService.Notification
 	{
 		private readonly ISmsClient smsClient;
 		private readonly NotificationProperties notificationProperties;
+		private readonly SmsServiceProperties smsServiceProperties;
 
-		public NotificationService(ISmsClient smsClient, NotificationProperties notificationProperties)
+		public NotificationService(ISmsClient smsClient, NotificationProperties notificationProperties, SmsServiceProperties smsServiceProperties)
 		{
 			this.smsClient = smsClient;
 			this.notificationProperties = notificationProperties;
+			this.smsServiceProperties = smsServiceProperties;
 		}
 
 		public async Task<Response> SendNotification(Notification notification)
@@ -37,13 +40,13 @@ namespace In.ProjectEKA.OtpService.Notification
 				};
 		}
 
-		private static string GenerateConsentRequestMessage(JToken notificationContent)
+		private string GenerateConsentRequestMessage(JToken notificationContent)
 		{
 			var content = notificationContent.ToObject<Content>();
 			var message =
 				$"Hello, {content.Requester} is requesting your consent for accessing health data for {content.HiTypes}. On providing" +
 				$" consent, {content.Requester} will get access to all the health data for which you have provided consent. " +
-				$"To view request, please tap on the link: {content.DeepLinkUrl}";
+				$"To view request, please tap on the link: {content.DeepLinkUrl} {smsServiceProperties.SmsSuffix}";
 			return message;
 		}
 
@@ -52,7 +55,7 @@ namespace In.ProjectEKA.OtpService.Notification
 			var consentManagerIdContent = notificationContent.ToObject<ConsentManagerIdContent>();
 			var message =
 				$"The {notificationProperties.PatientIdName} associated with your details is {consentManagerIdContent.ConsentManagerId}." +
-				" To make sure that your account is secure, we request you to reset the password";
+				$" To make sure that your account is secure, we request you to reset the password {smsServiceProperties.SmsSuffix}";
 			return message;
 		}
 		
@@ -61,7 +64,7 @@ namespace In.ProjectEKA.OtpService.Notification
 			var content = notificationContent.ToObject<HIPSMSNotificationContent>();
 			var message =
 				$"Hi {content.ReceiverName}, You can now access your {content.CareContextInfo} " +
-				$"from {content.HospitalName} digitally, please use the link below {content.DeeplinkUrl}";
+				$"from {content.HospitalName} digitally, please use the link below {content.DeeplinkUrl} {smsServiceProperties.SmsSuffix}";
 			return message;
 		}
 	}

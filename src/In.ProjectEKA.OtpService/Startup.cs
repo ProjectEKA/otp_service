@@ -56,7 +56,8 @@ namespace In.ProjectEKA.OtpService
                         Configuration.GetValue<string>("SmsService:SmsApi"),
                         Configuration.GetValue<string>("SmsService:Signature"),
                         Configuration.GetValue<string>("SmsService:EntityId"),
-                        Configuration.GetValue<int>("SmsService:AccessTokenTTLInMin")));
+                        Configuration.GetValue<int>("SmsService:AccessTokenTTLInMin"),
+                        Configuration.GetValue<string>("SmsService:SmsSuffix")));
             }
             else
             {
