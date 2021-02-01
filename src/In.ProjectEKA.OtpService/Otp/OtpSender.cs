@@ -11,13 +11,15 @@ namespace In.ProjectEKA.OtpService.Otp
         private readonly IOtpGenerator otpGenerator;
         private readonly ISmsClient smsClient;
         private readonly OtpProperties otpProperties;
+        private readonly SmsServiceProperties smsServiceProperties;
 
-        public OtpSender(IOtpRepository otpRepository, IOtpGenerator otpGenerator, ISmsClient smsClient, OtpProperties otpProperties)
+        public OtpSender(IOtpRepository otpRepository, IOtpGenerator otpGenerator, ISmsClient smsClient, OtpProperties otpProperties, SmsServiceProperties smsServiceProperties)
         {
             this.otpRepository = otpRepository;
             this.otpGenerator = otpGenerator;
             this.smsClient = smsClient;
             this.otpProperties = otpProperties;
+            this.smsServiceProperties = smsServiceProperties;
         }
 
         public async Task<Response> GenerateOtp(OtpGenerationRequest otpGenerationRequest)
@@ -45,11 +47,11 @@ namespace In.ProjectEKA.OtpService.Otp
                 Action.REGISTRATION => $"The OTP is {value} to verify the mobile number, This one time password is valid " +
                                        $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
                 Action.LINK_PATIENT_CARECONTEXT => $"The OTP is {value} to link your care context, This one time password is valid " +
-                              $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
+                              $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName} {smsServiceProperties.SmsSuffix}",
                 Action.RECOVER_PASSWORD => $"The OTP is {value} to recover password, This one time password is valid " +
                                                    $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
                 Action.FORGOT_PIN => $"The OTP is {value} to set a new consent pin, this one time password is valid " +
-                                                   $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
+                                                   $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName} {smsServiceProperties.SmsSuffix}",
                 _ => throw new Exception("Unknown action")
             };
         }

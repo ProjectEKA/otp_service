@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using In.ProjectEKA.OtpService.Clients;
 using In.ProjectEKA.OtpService.Common;
 using In.ProjectEKA.OtpService.Notification;
+using In.ProjectEKA.OtpService.Otp;
 using In.ProjectEKA.OtpServiceTest.Notification.Builder;
 using Moq;
 using Xunit;
@@ -18,11 +20,14 @@ namespace In.ProjectEKA.OtpServiceTest.Notification
                 "+91-9999999999",
                 "+91-8888888888"
             });
+
+        private readonly SmsServiceProperties smsServiceProperties = new SmsServiceProperties(String.Empty,
+            String.Empty, String.Empty, String.Empty, String.Empty, 0, String.Empty); 
         private readonly NotificationService notificationService;
 
         public NotificationServiceTest()
         {
-            notificationService = new NotificationService(notificationWebHandler.Object, notificationProperties);
+            notificationService = new NotificationService(notificationWebHandler.Object, notificationProperties, smsServiceProperties);
         }
 
         [Fact]

@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using In.ProjectEKA.OtpService.Clients;
 using In.ProjectEKA.OtpService.Common;
@@ -5,6 +6,7 @@ using In.ProjectEKA.OtpService.Otp;
 using In.ProjectEKA.OtpServiceTest.Otp.Builder;
 using Moq;
 using Xunit;
+using Action = In.ProjectEKA.OtpService.Otp.Action;
 
 namespace In.ProjectEKA.OtpServiceTest.Otp
 {
@@ -16,9 +18,11 @@ namespace In.ProjectEKA.OtpServiceTest.Otp
         private readonly Mock<IOtpGenerator> otpGenerator = new Mock<IOtpGenerator>();
         private readonly Mock<ISmsClient> otpWebHandler = new Mock<ISmsClient>();
         private readonly OtpProperties otpProperties = new OtpProperties(5);
+        private readonly SmsServiceProperties smsServiceProperties = new SmsServiceProperties(String.Empty,
+            String.Empty, String.Empty, String.Empty, String.Empty, 0, String.Empty);
         public OtpSenderTest()
         {
-            otpSender = new OtpSender(otpRepository.Object, otpGenerator.Object, otpWebHandler.Object, otpProperties);
+            otpSender = new OtpSender(otpRepository.Object, otpGenerator.Object, otpWebHandler.Object, otpProperties, smsServiceProperties);
         }
 
         [Fact]
