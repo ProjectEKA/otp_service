@@ -47,11 +47,11 @@ namespace In.ProjectEKA.OtpService.Otp
                 Action.REGISTRATION => $"The OTP is {value} to verify the mobile number, This one time password is valid " +
                                        $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
                 Action.LINK_PATIENT_CARECONTEXT => $"The OTP is {value} to link your care context, This one time password is valid " +
-                              $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName} {smsServiceProperties.SmsSuffix}",
+                              $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}\n\n{smsServiceProperties.SmsSuffix}",
                 Action.RECOVER_PASSWORD => $"The OTP is {value} to recover password, This one time password is valid " +
                                                    $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}",
                 Action.FORGOT_PIN => $"The OTP is {value} to set a new consent pin, this one time password is valid " +
-                                                   $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName} {smsServiceProperties.SmsSuffix}",
+                                                   $"for {otpProperties.ExpiryInMinutes} minutes. Message sent by {generationDetail.SystemName}\n\n{smsServiceProperties.SmsSuffix}",
                 _ => throw new Exception("Unknown action")
             };
         }

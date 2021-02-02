@@ -46,7 +46,7 @@ namespace In.ProjectEKA.OtpService.Notification
 			var message =
 				$"Hello, {content.Requester} is requesting your consent for accessing health data for {content.HiTypes}. On providing" +
 				$" consent, {content.Requester} will get access to all the health data for which you have provided consent. " +
-				$"To view request, please tap on the link: {content.DeepLinkUrl} {smsServiceProperties.SmsSuffix}";
+				$"To view request, please tap on the link: {content.DeepLinkUrl}\n\n{smsServiceProperties.SmsSuffix}";
 			return message;
 		}
 
@@ -55,7 +55,7 @@ namespace In.ProjectEKA.OtpService.Notification
 			var consentManagerIdContent = notificationContent.ToObject<ConsentManagerIdContent>();
 			var message =
 				$"The {notificationProperties.PatientIdName} associated with your details is {consentManagerIdContent.ConsentManagerId}." +
-				$" To make sure that your account is secure, we request you to reset the password {smsServiceProperties.SmsSuffix}";
+				$" To make sure that your account is secure, we request you to reset the password\n\n{smsServiceProperties.SmsSuffix}";
 			return message;
 		}
 		
@@ -63,8 +63,8 @@ namespace In.ProjectEKA.OtpService.Notification
 		{
 			var content = notificationContent.ToObject<HIPSMSNotificationContent>();
 			var message =
-				$"Hi {content.ReceiverName}, You can now access your {content.CareContextInfo} " +
-				$"from {content.HospitalName} digitally, please use the link below {content.DeeplinkUrl} {smsServiceProperties.SmsSuffix}";
+				$"\"Hi {content.ReceiverName}, You can now access your {content.CareContextInfo} " +
+				$"from {content.HospitalName} digitally, please use the link below {content.DeeplinkUrl}\n\n{smsServiceProperties.SmsSuffix}";
 			return message;
 		}
 	}
