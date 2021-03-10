@@ -59,7 +59,9 @@ namespace In.ProjectEKA.OtpService.Clients
                 var response = await client
                     .SendAsync(request)
                     .ConfigureAwait(false);
-                Log.Information(response.ToString());
+
+                var contents = await response.Content.ReadAsStringAsync();
+                Log.Information(contents);
                 if (response.StatusCode == (HttpStatusCode) 200)
                     return new Response(ResponseType.Success, "Notification sent");
                 Log.Error(response.StatusCode,response.Content);
